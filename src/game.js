@@ -1,18 +1,26 @@
 import Phaser from 'phaser'
+import { GameUi } from './scenes/GameUI'
 
 import MainScene from './scenes/MainScene'
 
 const config = {
 	type: Phaser.AUTO,
-	width: window.innerWidth,
-	height: window.innerHeight,
+	backgroundColor: '#000000',
+	pixelArt: true, // Prevent pixel art from becoming blurred when scaled.
+	scale: {
+		mode: Phaser.Scale.ScaleModes.RESIZE,
+		width: window.innerWidth,
+		height: window.innerHeight,
+	},
+	autoFocus: true,
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: { y: 200 }
+			debug: false,
+			gravity: { y: 0 }
 		}
 	},
-	scene: [MainScene]
+	scene: [MainScene, GameUi],
 }
 
 export default new Phaser.Game(config)
