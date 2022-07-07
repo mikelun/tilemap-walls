@@ -11,10 +11,10 @@ export default class HelloWorldScene extends Phaser.Scene {
     }
 
     preload() {
-
+        const mapId = 1;
         // LOAD YOUR MAP
-        this.load.image('map', 'assets/map.png');
-        this.load.image('map-fg', 'assets/map-fg.png');
+        this.load.image('map', `assets/gather-${mapId}.png`);
+        this.load.image('map-fg', `assets/gather-${mapId}-fg.png`);
 
         // LOAD PLUGINS
         this.load.plugin('rexpinchplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexpinchplugin.min.js', true);
