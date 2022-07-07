@@ -11,7 +11,7 @@ export default class HelloWorldScene extends Phaser.Scene {
     }
 
     preload() {
-        const mapId = 1;
+        const mapId = 7;
         // LOAD YOUR MAP
         this.load.image('map', `assets/gather-${mapId}.png`);
         this.load.image('map-fg', `assets/gather-${mapId}-fg.png`);
@@ -49,8 +49,11 @@ export default class HelloWorldScene extends Phaser.Scene {
             if (startPosition) {
                 lines.push(object);
                 window.scene.addPointerEventsToObject(object);
+                startPosition = {
+                    x: object.x + object.width + (object.width == 3 ? -3 : 0),
+                    y: object.y + object.height + (object.height == 3 ? -3 : 0)
+                }
                 object = null;
-                startPosition = null;
                 return;
             }
             if (isLineButtonActive()) {
@@ -71,6 +74,11 @@ export default class HelloWorldScene extends Phaser.Scene {
 
         // when player drag the scene
         this.input.on('pointermove', function (pointer) {
+            if (!isLineButtonActive()) {
+                if (object) object.destroy();
+                startPosition = null;
+                return;
+            }
             if (startPosition) {
                 if (object) object.destroy();
                 const rotation = Phaser.Math.Angle.Between(startPosition.x, startPosition.y, pointer.worldX, pointer.worldY);
@@ -152,7 +160,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 
         // add rectangle to start and end point
         const startPoint = this.add.rectangle(object.x, object.y, 3, 3, 0x00ff00).setOrigin(0);
-        const endPoint = this.add.rectangle(object.x + object.width - 3, object.y + object.height - 3, 3, 3, 0x00ff00).setOrigin(0);
+        const endPoint = this.add.rectangle(object.x + object.width + (object.width == 3 ? -3 : 0), object.y + object.height + (object.height == 3 ? -3 : 0), 3, 3, 0x00ff00).setOrigin(0);
         startPoint.setInteractive().on('pointerdown', function (pointer) {
             window.scene.pointPicker = {
                 x: startPoint.x,
