@@ -11,7 +11,7 @@ export default class HelloWorldScene extends Phaser.Scene {
     }
 
     preload() {
-        const mapId = 3;
+        const mapId = 10;
         // LOAD YOUR MAP
         this.load.image('map', `assets/map-${mapId}.png`);
         this.load.image('map-fg', `assets/map-${mapId}-fg.png`);
